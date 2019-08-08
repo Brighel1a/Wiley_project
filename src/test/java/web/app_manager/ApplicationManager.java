@@ -7,6 +7,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.util.concurrent.TimeUnit;
+
 public class ApplicationManager {
   WebDriver wd;
   String browser;
@@ -14,7 +16,7 @@ public class ApplicationManager {
 
   private SearchHelper search;
   private SubjectsHelper subjects;
-  private HomePageHelper home;
+  private HeaderHelper home;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -28,14 +30,19 @@ public class ApplicationManager {
     }  else if(browser.equals(BrowserType.IE))  {
       wd = new InternetExplorerDriver();
     }
+    wd.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     wd.get("https://www.wiley.com/en-us");
+    closePopup();
+    search = new SearchHelper(wd);
+    subjects = new SubjectsHelper(wd);
+    home = new HeaderHelper(wd);
+  }
+
+  private void closePopup() {
     popup = wd.findElement(By.xpath(".//form[@id='country-location-form']")).isDisplayed();
     if(popup){
       wd.findElement(By.xpath(".//form[@id='country-location-form']//button[contains(text(),'NO')]")).click();
     }
-    search = new SearchHelper(wd);
-    subjects = new SubjectsHelper(wd);
-    home = new HomePageHelper(wd);
   }
 
   public void stop(){
@@ -50,7 +57,7 @@ public class ApplicationManager {
     return subjects;
   }
 
-  public HomePageHelper home(){
+  public HeaderHelper header(){
     return home;
   }
 }

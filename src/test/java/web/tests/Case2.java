@@ -7,7 +7,24 @@ package web.tests;
 //          “Corporations”, “Societies”, “Journal Editors”, “Government”
 // !without click! check that there are only 11 items and the List consists this names
 
-public class Case2 {
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
+import java.util.*;
+
+public class Case2 extends TestBase{
+
+  Set<String> setExpectedItems = new HashSet<>(Arrays.asList("Students", "Instructors", "Book Authors", "Professionals", "Researchers", "Institutions", "Librarians",
+          "Corporations", "Societies", "Journal Editors", "Government"));
+
+  @Test
+  public void checkSubelementsWhoWeSerse(){
+    app.header().showSubHeaderOf("WHO WE SERVE");
+    List<String> subHeaderElements = app.header().listOfElements();
+    Set<String> setOfFoundElements = new HashSet<String>(subHeaderElements);
+
+    Assert.assertEquals(subHeaderElements.size(),11);
+    Assert.assertTrue(setExpectedItems.removeAll(setOfFoundElements));
+  }
 
 }

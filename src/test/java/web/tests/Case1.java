@@ -1,4 +1,6 @@
 package web.tests;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 //Part 1. Java and Selenium WebDriver
 //        1. Open https://www.wiley.com/en-us
@@ -7,10 +9,6 @@ package web.tests;
 //        - Subjects
 //        - About
 
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 public class Case1 extends TestBase{
   Boolean linkWhoWeServe;
   Boolean linkSubjects;
@@ -18,9 +16,9 @@ public class Case1 extends TestBase{
 
   @Test
   public void checkDisplayedLinks() {
-    linkWhoWeServe = app.home().findLink("WHO WE SERVE");
-    linkSubjects = app.home().findLink("SUBJECTS");
-    linkAbout = app.home().findLink("ABOUT");
+    linkWhoWeServe = app.header().findLink("WHO WE SERVE");
+    linkSubjects = app.header().findLink("SUBJECTS");
+    linkAbout = app.header().findLink("ABOUT");
 
     Assert.assertTrue(linkWhoWeServe);
     Assert.assertTrue(linkSubjects);
