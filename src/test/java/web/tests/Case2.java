@@ -18,10 +18,11 @@ public class Case2 extends TestBase{
           "Corporations", "Societies", "Journal Editors", "Government"));
 
   @Test
-  public void checkSubelementsWhoWeSerse(){
+  public void checkSubElementsWhoWeSerse(){
     app.header().showSubHeaderOf("WHO WE SERVE");
     List<String> subHeaderElements = app.header().listOfElements();
     Set<String> setOfFoundElements = new HashSet<String>(subHeaderElements);
+
 
     Assert.assertEquals(subHeaderElements.size(),11);
     Assert.assertTrue(setExpectedItems.removeAll(setOfFoundElements));

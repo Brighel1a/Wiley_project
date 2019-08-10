@@ -2,19 +2,19 @@ package web.app_manager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import java.util.ArrayList;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class HeaderHelper extends HelperBase{
-  Boolean linkExist;
+  WebDriverWait wait = new WebDriverWait(wd, 30);
   public HeaderHelper(WebDriver wd) {
     super(wd);
   }
 
-  public Boolean findLink(String link) {
-    linkExist = isElementPresent(By.xpath(".//a[@class='collapsed' and contains (text(),'"+ link +"')]"));
+  public boolean findElement(String element) {
+    boolean linkExist = isElementPresent(By.xpath(".//a[@class='collapsed' and contains (text(),'"+ element +"')]"));
            // ".//span[@class='dropdown-item-title' and contains (text(),'"+link+"')]"));
     return linkExist;
   }
@@ -26,11 +26,28 @@ public class HeaderHelper extends HelperBase{
     return elements;
   }
 
-  public void showSubHeaderOf(String element){
-    muveTo(By.xpath(".//a[@class='collapsed' and contains (text(),'"+ element +"')]"));
+  public HeaderHelper showSubHeaderOf(String headerName){
+    muveTo(By.xpath(".//a[@class='collapsed' and contains (text(),'"+ headerName +"')]"));
+    return this;
   }
 
+  public void clickSubHeaderOf(String headerName, String subHeader){
+    muveTo(By.xpath(".//a[@class='collapsed' and contains (text(),'"+ headerName +"')]"));
+    click(By.xpath(".//a[@title='with submenu' and contains(.,'"+ subHeader +"')]"));
+  }
 
+  public void goTo(String element){
+    click(By.xpath(".//a[@class='collapsed' and contains (text(),'"+ element +"')]"));
+  }
 
+  public String getPageUrl(){
+    return getCurrentUrl();
+  }
 
+  public void clickToLogo() {
+//    isElementPresent(By.cssSelector("img[title=Wiley]"));
+    By loadingLink = By.cssSelector("img[title=Wiley]");
+    wait.until(ExpectedConditions.elementToBeClickable(loadingLink));
+    click(By.xpath(".//div[@class='yCmsContentSlot logo']"));
+  }
 }

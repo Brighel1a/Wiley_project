@@ -16,7 +16,10 @@ public class ApplicationManager {
 
   private SearchHelper search;
   private SubjectsHelper subjects;
-  private HeaderHelper home;
+  private HeaderHelper header;
+  private HomePageHelper home;
+  private StudentsHelper students;
+  private EducationHelper education;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -35,13 +38,16 @@ public class ApplicationManager {
     closePopup();
     search = new SearchHelper(wd);
     subjects = new SubjectsHelper(wd);
-    home = new HeaderHelper(wd);
+    header = new HeaderHelper(wd);
+    home = new HomePageHelper(wd);
+    students = new StudentsHelper(wd);
+    education = new EducationHelper(wd);
   }
 
   private void closePopup() {
     popup = wd.findElement(By.xpath(".//form[@id='country-location-form']")).isDisplayed();
     if(popup){
-      wd.findElement(By.xpath(".//form[@id='country-location-form']//button[contains(text(),'NO')]")).click();
+      wd.findElement(By.xpath(".//form[@id='country-location-form']//button[contains(text(),'YES')]")).click();
     }
   }
 
@@ -58,6 +64,18 @@ public class ApplicationManager {
   }
 
   public HeaderHelper header(){
+    return header;
+  }
+
+  public HomePageHelper home(){
     return home;
+  }
+
+  public StudentsHelper students(){
+    return students;
+  }
+
+  public EducationHelper education() {
+    return education;
   }
 }

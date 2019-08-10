@@ -5,6 +5,17 @@ package web.tests;
 //        - Nothing happens, header page is still displayed
 
 
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-public class Case6 {
+public class Case6 extends TestBase{
+
+  @Test
+  public void checkPageDisplayedAfterSerch(){
+    boolean pageDisplayed = app.search().checkReloadPegeAfterSeerch();
+
+    Assert.assertTrue(pageDisplayed);
+  }
+
+
 }

@@ -16,9 +16,9 @@ public class Case1 extends TestBase{
 
   @Test
   public void checkDisplayedLinks() {
-    linkWhoWeServe = app.header().findLink("WHO WE SERVE");
-    linkSubjects = app.header().findLink("SUBJECTS");
-    linkAbout = app.header().findLink("ABOUT");
+    linkWhoWeServe = app.header().findElement("WHO WE SERVE");
+    linkSubjects = app.header().findElement("SUBJECTS");
+    linkAbout = app.header().findElement("ABOUT");
 
     Assert.assertTrue(linkWhoWeServe);
     Assert.assertTrue(linkSubjects);
