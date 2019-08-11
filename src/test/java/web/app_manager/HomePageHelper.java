@@ -15,7 +15,7 @@ public class HomePageHelper extends HelperBase {
   }
 
   public void goTo(String element){
-//    WebElement we = wd.findElement(By.cssSelector("a[title="+ element+ "]"));
+//    WebElement we = wd.checkLinkIsDisplayed(By.cssSelector("a[title="+ element+ "]"));
 //    ((JavascriptExecutor) wd).executeScript("arguments[0].scrollIntoView(true);", we);
 
     muveTo(By.cssSelector("a[title="+ element+ "]"));

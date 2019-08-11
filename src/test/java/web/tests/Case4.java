@@ -1,4 +1,11 @@
 package web.tests;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 //        4. Go to “Subjects” top menu, select “Education”
 //        - Check “Education” header is displayed
@@ -18,15 +25,6 @@ package web.tests;
 //        - "Literacy & Reading",
 //        - "Classroom Management"
 
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 public class Case4 extends TestBase {
   Set<String> setExpectedItems = new HashSet<>(Arrays.asList("Information & Library Science", "Education & Public Policy",
           "K-12 General", "Higher Education General", "Vocational Technology",
@@ -37,13 +35,16 @@ public class Case4 extends TestBase {
   @Test
   public void checkLeftMenuUnderHeader(){
     app.header().clickSubHeaderOf("SUBJECTS","Education");
-    boolean headerIsDisplayed = app.education().headerIsDisplayed("Education");
+    app.education().checkHeaderIsDisplayed("Education");
     List<String> listOfFoundElements = app.education().getElementOfLeftMenu();
     Set<String> setOfFoundElements = new HashSet<String>(listOfFoundElements);
 
-
-    Assert.assertTrue(headerIsDisplayed);
     Assert.assertEquals(listOfFoundElements.size(),13);
     Assert.assertEquals(setOfFoundElements, setExpectedItems);
+  }
+
+  @AfterMethod
+  public void returnToHome(){
+    app.goToHomePage();
   }
 }

@@ -51,6 +51,10 @@ public class ApplicationManager {
     }
   }
 
+  public void goToHomePage(){
+    wd.get("https://www.wiley.com/en-us");
+  }
+
   public void stop(){
     wd.quit();
   }

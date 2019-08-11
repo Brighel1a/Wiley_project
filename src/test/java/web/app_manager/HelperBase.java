@@ -33,7 +33,7 @@ public class HelperBase {
     }
   }
 
-  protected boolean pageNotReloaded(By locator){
+  protected boolean isPageReloaded(By locator){
     try {
       wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
       return wd.findElements(locator).size() > 0;
@@ -42,8 +42,14 @@ public class HelperBase {
     }
   }
 
-  public void type(By locator, String text){
-    wd.findElement(locator).sendKeys(text);
+  public void type(By locator, String text) {
+    if (text != null) {
+      String existingText = wd.findElement(locator).getAttribute("value");
+      if (!text.equals(existingText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+      }
+    }
   }
 
   protected void muveTo(By locator){

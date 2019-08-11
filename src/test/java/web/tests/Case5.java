@@ -1,11 +1,10 @@
 package web.tests;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
 
 //        5. Click on the Wiley logo at the top menu (left side of the top menu)
 //        - Home page is opened
-
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 public class Case5 extends TestBase{
   String expectUrl = "https://www.wiley.com/en-us";
@@ -18,4 +17,8 @@ public class Case5 extends TestBase{
     Assert.assertEquals(currentUrl,expectUrl);
   }
 
+  @AfterMethod
+  public void returnToHome(){
+    app.goToHomePage();
+  }
 }

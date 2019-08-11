@@ -1,16 +1,15 @@
 package web.tests;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import web.util.Headers;
+import java.util.*;
 
 //        2. Check items under Who We Serve for sub-header
 //        - There are 11 items under resources sub-header
 //        - Titles are “Students”, “Instructors”, “Book Authors”,
 //          “Professionals”, “Researchers”, “Institutions”, “Librarians”,
 //          “Corporations”, “Societies”, “Journal Editors”, “Government”
-// !without click! check that there are only 11 items and the List consists this names
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import java.util.*;
 
 public class Case2 extends TestBase{
 
@@ -18,14 +17,17 @@ public class Case2 extends TestBase{
           "Corporations", "Societies", "Journal Editors", "Government"));
 
   @Test
-  public void checkSubElementsWhoWeSerse(){
-    app.header().showSubHeaderOf("WHO WE SERVE");
-    List<String> subHeaderElements = app.header().listOfElements();
-    Set<String> setOfFoundElements = new HashSet<String>(subHeaderElements);
+  public void checkSubHeadersWhoWeSerse(){
+    app.header().showSubHeaderOf(Headers.WHO_WE_SERVE.getValue());
+    List<String> subHeaderItems = app.header().getSubHeadersItems();
+    Set<String> setOfSubHeaderItems = new HashSet<String>(subHeaderItems);
 
-
-    Assert.assertEquals(subHeaderElements.size(),11);
-    Assert.assertTrue(setExpectedItems.removeAll(setOfFoundElements));
+    Assert.assertEquals(subHeaderItems.size(),11);
+    Assert.assertTrue(setExpectedItems.removeAll(setOfSubHeaderItems));
   }
 
+  @AfterMethod
+  public void returnToHome(){
+    app.goToHomePage();
+  }
 }

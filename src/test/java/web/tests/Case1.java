@@ -1,6 +1,7 @@
 package web.tests;
-import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import web.util.Headers;
 
 //Part 1. Java and Selenium WebDriver
 //        1. Open https://www.wiley.com/en-us
@@ -10,20 +11,16 @@ import org.testng.annotations.Test;
 //        - About
 
 public class Case1 extends TestBase{
-  Boolean linkWhoWeServe;
-  Boolean linkSubjects;
-  Boolean linkAbout;
 
   @Test
   public void checkDisplayedLinks() {
-    linkWhoWeServe = app.header().findElement("WHO WE SERVE");
-    linkSubjects = app.header().findElement("SUBJECTS");
-    linkAbout = app.header().findElement("ABOUT");
-
-    Assert.assertTrue(linkWhoWeServe);
-    Assert.assertTrue(linkSubjects);
-    Assert.assertTrue(linkAbout);
+    app.header().checkLinkIsDisplayed(Headers.WHO_WE_SERVE.getValue());
+    app.header().checkLinkIsDisplayed(Headers.SUBJECTS.getValue());
+    app.header().checkLinkIsDisplayed(Headers.ABOUT.getValue());
   }
 
-
+  @AfterMethod
+  public void returnToHome(){
+    app.goToHomePage();
+  }
 }

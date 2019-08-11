@@ -2,6 +2,7 @@ package web.app_manager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,9 +16,8 @@ public class StudentsHelper extends HelperBase {
     return getCurrentUrl();
   }
 
-  public boolean headerIsDisplayed(String element) {
-    boolean linkExist = isElementDisplayed(By.xpath(".//span[contains(.,'"+ element +"')]"));
-    return linkExist;
+  public void checkHeaderIsDisplayed(String element) {
+    Assert.assertTrue(isElementDisplayed(By.xpath(".//span[contains(.,'"+ element +"')]")));
   }
 
   public String getUrlOfLink(String element){
